@@ -31,7 +31,7 @@ class CrackNoiseModelCPUImpl:
 @attr.s(auto_attribs=True, kw_only=True)
 class CrackNoiseModel(SensorNoiseModel):
     def __attrs_post_init__(self):
-        self.crack = np.load("data/crack.npy")
+        self.crack = np.load("environments/habitat/habitat-sim/habitat_sim/sensors/noise_models/data/crack.npy")
         self._impl = CrackNoiseModelCPUImpl(self.crack)
 
     @staticmethod
