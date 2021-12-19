@@ -7,7 +7,6 @@
 import attr
 import numba
 import numpy as np
-import cv2
 
 from habitat_sim.registry import registry
 from habitat_sim.sensor import SensorType
@@ -15,14 +14,10 @@ from habitat_sim.sensors.noise_models.sensor_noise_model import SensorNoiseModel
 
 
 @numba.jit(nopython=True, parallel=True, fastmath=True)
-def _simulate(image, crack):
-    mask_1d = crack.mean(axis=2) < 50
-    mask_3d = np.zeros(mask_1d.shape + (3,))
-    mask_3d[:, :, 0] = mask_1d
-    mask_3d[:, :, 1] = mask_1d
-    mask_3d[:, :, 2] = mask_1d
 
-    return np.where(mask_3d, crack, image).astype(np.uint8)
+def _simulate(image, crack):
+    mask = crack > 240
+    return np.where(mask, image, crack).astype(np.uint8)
 
 @attr.s(auto_attribs=True)
 class CrackNoiseModelCPUImpl:
@@ -37,7 +32,7 @@ class CrackNoiseModelCPUImpl:
 class CrackNoiseModel(SensorNoiseModel):
     def __attrs_post_init__(self):
         self._impl = CrackNoiseModelCPUImpl(self.crack)
-        self.crack = cv2.imread("data/crack.png")
+        self.crack = np.load("data/crack.npy")
 
     @staticmethod
     def is_valid_sensor_type(sensor_type: SensorType) -> bool:
