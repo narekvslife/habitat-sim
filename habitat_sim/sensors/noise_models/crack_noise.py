@@ -31,8 +31,8 @@ class CrackNoiseModelCPUImpl:
 @attr.s(auto_attribs=True, kw_only=True)
 class CrackNoiseModel(SensorNoiseModel):
     def __attrs_post_init__(self):
-        self._impl = CrackNoiseModelCPUImpl(self.crack)
         self.crack = np.load("data/crack.npy")
+        self._impl = CrackNoiseModelCPUImpl(self.crack)
 
     @staticmethod
     def is_valid_sensor_type(sensor_type: SensorType) -> bool:
