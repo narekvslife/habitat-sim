@@ -19,8 +19,9 @@ from habitat_sim.sensors.noise_models.salt_and_pepper_noise_model import (
 from habitat_sim.sensors.noise_models.sensor_noise_model import SensorNoiseModel
 from habitat_sim.sensors.noise_models.speckle_noise_model import SpeckleNoiseModel
 
-from habitat_sim.sensors.noise_models.narrow_fov_noise import SensorNoiseModel
-from habitat_sim.sensors.noise_models.crack_noise import NarrowFOVNoiseModel
+from habitat_sim.sensors.noise_models.crack_noise import CrackNoiseModel
+from habitat_sim.sensors.noise_models.narrow_fov_noise import NarrowFOVNoiseModel
+
 
 def make_sensor_noise_model(name: str, kwargs: Dict[str, Any]) -> SensorNoiseModel:
     r"""Constructs a noise model using the given name and keyword arguments
@@ -44,4 +45,6 @@ __all__ = [
     "SaltAndPepperNoiseModel",
     "PoissonNoiseModel",
     "SpeckleNoiseModel",
+    "CrackNoiseModel",
+    "NarrowFOVNoiseModel"
 ]
