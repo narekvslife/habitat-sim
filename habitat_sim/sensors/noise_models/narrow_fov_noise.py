@@ -19,7 +19,6 @@ def _simulate(image, percentage_crop):
     h, w, _ = image.shape
     h_crop, w_crop = int(h*percentage_crop / 2), int(w*percentage_crop / 2)
     cropped_image = image[h_crop:-h_crop, w_crop:-w_crop, :]
-    cropped_image = cv2.resize(cropped_image, (w,h))
     return cropped_image.astype(np.uint8)
 
 @attr.s(auto_attribs=True)
